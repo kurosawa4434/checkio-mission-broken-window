@@ -57,22 +57,23 @@ def make_randoms(num):
 
         ls = list(map(list, tops+bottoms))
         shuffle(ls)
-        yield ls
+        yield ls, height
 
 
 basics = [
-    [[0, 1], [0, 1]],
-    [[0, 3, 4, 1], [4, 0], [3, 0], [0, 1, 4, 0]],
+    ([[0, 1], [0, 1]], 1),
+    ([[0, 3, 4, 1], [4, 0], [3, 0], [0, 1, 4, 0]], 4),
 ]
 
 edges = [
-    [[1, 1], [1, 1], [1, 1], [1, 1]],
+    ([[1, 1], [1, 1], [1, 1], [1, 1]], 2),
 ]
 
-make_tests = lambda tests: [{'input': t, 'answer': t} for t in tests]
+make_tests = lambda tests: [{'input': t, 'answer': t, 'explanation': h} for t, h in tests]
 
 TESTS = {
     "Basics": make_tests(basics),
     "Edges": make_tests(edges),
     "Randoms": make_tests(make_randoms(10)),
 }
+

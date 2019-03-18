@@ -7,13 +7,14 @@ requirejs(['ext_editor_io', 'jquery_190', 'raphael_210'],
                 return
             }
 
-            console.log(data)
+            $(dom.parentNode).find(".answer").remove()
+            
             const result = data.ext.result
             const output = data.out
             const error = data.ext.result_addon[1]
+            const height = data.ext.explanation
 
             if (! result && error !== 'Fail') {
-                console.log('fail')
                 return
             }
 
@@ -53,7 +54,6 @@ requirejs(['ext_editor_io', 'jquery_190', 'raphael_210'],
             bottom.forEach(b=>{
                 bottom_width += b.length-1
             })
-            console.log(top_width, bottom_width)
             const width = Math.max(top_width, bottom_width)
 
             let heights = []
@@ -61,8 +61,7 @@ requirejs(['ext_editor_io', 'jquery_190', 'raphael_210'],
                 heights.push(top_order[j]+bottom_order[j])
             }
 
-            const height =  Math.max(...heights)
-            console.log(width, height)
+            //const height =  Math.max(...heights)
 
             const attr = {
                 mountain: {
@@ -113,6 +112,7 @@ requirejs(['ext_editor_io', 'jquery_190', 'raphael_210'],
                 path = path.concat(['L', fx+os, 0+os, 'z'])
                 paper.path(path.join(' ')).attr(attr.mountain.content)
             })
+            number(top, false)
 
             fx = 0
             fy = height*SIZE
@@ -127,15 +127,13 @@ requirejs(['ext_editor_io', 'jquery_190', 'raphael_210'],
                 path = path.concat(['L', fx+os, height*SIZE+os, 'z'])
                 paper.path(path.join(' ')).attr(attr.flood.after)
             })
+            number(bottom, true)
 
             /*----------------------------------------------*
              *
-             * number
+             * (func) number
              *
              *----------------------------------------------*/
-            number(top, false)
-            number(bottom, true)
-
             function number(fragments, flag) {
                 total_width = 0
                 fragments.forEach((f, i)=>{
