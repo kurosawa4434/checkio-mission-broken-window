@@ -1,21 +1,20 @@
-
 <p>
-Please restore the broken window glass.
+You have to restore the broken window glass.
 </p>
 
 <p>
 You are given a list of lists as input values.
-Each list of integer represents a piece.
+Each list of integers represents a missing piece.
 It always has a horizontal base, which forms the upper or lower side of the window.
-Each integer represents the height from the base and is a value measured at equal intervals from the left edge. Therefore, the length of the list represents width.
+Each integer represents the height from the base and is a value measured at equal intervals from the left edge. Therefore, the length of the list represents the width.
 </p>
 <p>
-The answer should be returned in the two lists. (upper list, lower list in order)
+The answer should be returned in the two lists (the upper list and lower list in that order).
 </p>
 <ul>
-    <li>In the output, each piece is represented in the order given as input. (starting with 0)</li>
+    <li>In the output each piece is represented in the order given as input (starting with 0).</li>
     <li>The bases of the pieces in the same list must always be adjacent to each other.</li>
-    <li>It is not necessary to consider turning over piece.</li>
+    <li>It’s not necessary to consider turning a piece over.</li>
 </ul>
 <img src='{{MEDIA}}example_01.png' title='example'>
 
@@ -37,12 +36,12 @@ broken_window([[4, 0], [0, 1, 4, 0], [3, 0], [0, 3, 4, 1]] == ([1, 2], [0, 3])  
 <p><strong>Input: </strong>
 {% if interpreter.slug == "js-node" %}
 {% else %}
-The pieces of the broken window. (list of list of integers)
+The pieces of the broken window (list of lists of integers).
 {% endif %}
 </p>
 
 <p><strong>Output: </strong>
-List of top pieces and list of bottom pieces. (both list of integers)
+The list of top pieces and list of bottom pieces (both are lists of integers).
 </p>
 
 
@@ -61,4 +60,3 @@ List of top pieces and list of bottom pieces. (both list of integers)
     <li>1 &le; height of window &le; 18</li>
 </ul>
 </p>
-
