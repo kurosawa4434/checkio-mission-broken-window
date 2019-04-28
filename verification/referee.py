@@ -44,24 +44,32 @@ def checker(pieces, answer):
     if set(answer[0]+answer[1]) != set(range(len(pieces))):
         return False, (answer, 'Wrong value')
 
-    def concatenate_pieces(indices, top):
-        heights_list = []
-        for i in indices:
-            heights = pieces[i]
-            if top:
-                heights = list(reversed(heights))
-            if heights_list and heights[0] == heights_list[-1]:
-                heights_list.pop()
-            heights_list += heights
-        return heights_list
+    tops = [list(reversed(pieces[t])) for t in answer[0]]
+    bottoms = [pieces[b] for b in answer[1]]
+    height = set()
 
-    tops = concatenate_pieces(answer[0], True)
-    bottoms = concatenate_pieces(answer[1], False)
+    top = tops.pop(0)
+    bottom = bottoms.pop(0)
+    while True:
+        height |= set(map(sum, zip(top, bottom)))
+        if len(top) < len(bottom) and tops:
+            bottom = bottom[len(top)-1:]
+            top = tops.pop(0)
+        elif len(top) > len(bottom) and bottoms:
+            top = top[len(bottom)-1:]
+            bottom = bottoms.pop(0)
+        elif len(top) == len(bottom):
+            if tops and bottoms:
+                top = tops.pop(0)
+                bottom = bottoms.pop(0)
+            elif not tops and not bottoms:
+                break
+            else:
+                return False, (answer, 'Fail')
+        else:
+            return False, (answer, 'Fail')
 
-    if len(tops) != len(bottoms):
-        return False, (answer, 'Fail')
-
-    if len({sum(z) for z in zip(tops, bottoms)}) == 1:
+    if len(height) == 1:
         return True, (answer, 'Success')
     else:
         return False, (answer, 'Fail')
